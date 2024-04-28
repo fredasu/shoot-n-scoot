@@ -14,13 +14,12 @@ func _ready():
 	hide()	#hide player when game starts
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
+	look_at(get_global_mouse_position())	#rotation to follow mouse
 	var velocity = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed("click"):
 		velocity = get_global_mouse_position() - position	#vector between where mouse and player is
-		shoot.emit(bullet, rotation, position)
-		#look_at(get_global_mouse_position())
-
+		shoot.emit(bullet, position, velocity)
 	if velocity.length() > 0:
 		velocity = -velocity.normalized() * speed	#go opposite direction as where mouse vector is
 		$AnimatedSprite2D.play()	#$ is shorthand for get_node(), use relative path => get_node("AnimatedSprite2D").play()

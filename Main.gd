@@ -68,9 +68,9 @@ func _on_mob_timer_timeout():
 	add_child(mob)
 
 
-func _on_player_shoot(bullet, direction, location):
+func _on_player_shoot(bullet, position, direction):
 	var spawned_bullet = bullet.instantiate()
 	add_child(spawned_bullet)
-	spawned_bullet.rotation = direction
-	spawned_bullet.position = location
-	#spawned_bullet.velocity = spawned_bullet.velocity.rotated(direction)
+	spawned_bullet.position = position
+	#spawned_bullet._set_direction(direction)
+	

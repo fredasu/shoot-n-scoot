@@ -1,5 +1,5 @@
 extends Area2D
-var direction: Vector2
+var direction:= Vector2.ZERO
 var speed: int = 100
 var velocity
 
@@ -9,12 +9,13 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _physics_process(delta):
+	if direction != Vector2.ZERO:
+		velocity = direction.normalized()  * speed
+		global_position += velocity * delta
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()	#deletes self when move offscreen
-
-func _physics_process(delta):
-	velocity = direction.normalized()  * speed
-	position += velocity * delta
+	
+func _set_direction(dir):
+	direction = dir
