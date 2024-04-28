@@ -4,6 +4,9 @@ extends Area2D
 var screen_size # Size of the game window.
 var buffer = 40	#adjust as needed to not get stuck on the edge of the board/wraparound (full sprite visible again)
 signal hit
+signal shoot(bullet, direction, location)
+
+var bullet = preload("res://bullet.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,6 +18,8 @@ func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed("click"):
 		velocity = get_global_mouse_position() - position	#vector between where mouse and player is
+		shoot.emit(bullet, rotation, position)
+		#look_at(get_global_mouse_position())
 
 	if velocity.length() > 0:
 		velocity = -velocity.normalized() * speed	#go opposite direction as where mouse vector is

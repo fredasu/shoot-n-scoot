@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn7q4podah8ij"]
+
+[ext_resource type="Texture2D" uid="uid://ducw3v3j0t26n" path="res://art/bullet.png" id="1_rg1pe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tclcm"]
+radius = 40.0
+height = 191.883
+
+[node name="bullet" type="Area2D"]
+scale = Vector2(0.25, 0.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.53589
+shape = SubResource("CapsuleShape2D_tclcm")
+
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rg1pe")

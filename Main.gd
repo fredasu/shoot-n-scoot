@@ -1,6 +1,7 @@
 extends Node
 
 @export var mob_scene: PackedScene
+@export var bullet: PackedScene
 var score
 
 # Called when the node enters the scene tree for the first time.
@@ -65,3 +66,11 @@ func _on_mob_timer_timeout():
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
+
+
+func _on_player_shoot(bullet, direction, location):
+	var spawned_bullet = bullet.instantiate()
+	add_child(spawned_bullet)
+	spawned_bullet.rotation = direction
+	spawned_bullet.position = location
+	#spawned_bullet.velocity = spawned_bullet.velocity.rotated(direction)
