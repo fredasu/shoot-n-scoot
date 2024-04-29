@@ -1,18 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn7q4podah8ij"]
+[gd_scene load_steps=3 format=3 uid="uid://cv0y7iu5l1pe5"]
 
-[ext_resource type="Texture2D" uid="uid://ducw3v3j0t26n" path="res://art/bullet.png" id="1_rg1pe"]
+[ext_resource type="Script" path="res://bullet.gd" id="1_3cro0"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tclcm"]
-radius = 31.9805
-height = 191.883
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58fim"]
+size = Vector2(72, 20)
 
 [node name="bullet" type="Area2D"]
-scale = Vector2(0.25, 0.25)
+script = ExtResource("1_3cro0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.53589
-shape = SubResource("CapsuleShape2D_tclcm")
+position = Vector2(46, 0)
+shape = SubResource("RectangleShape2D_58fim")
 
-[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("1_rg1pe")
+[node name="Panel" type="Panel" parent="CollisionShape2D"]
+offset_left = -37.0
+offset_top = -11.0
+offset_right = 36.0
+offset_bottom = 11.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
