@@ -6,7 +6,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$MobTimer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -17,26 +17,9 @@ func _input(event):
 		var bullet1 = bullet.instantiate()
 		bullet1.transform = $player/Marker2D.global_transform
 		add_child(bullet1)
-	if event.is_action_released("spawnEnemy"):	#press space bar to make enemy for debugging
-		var mob = mob_scene.instantiate()
-
-	# Choose a random location on Path2D.
-		var mob_spawn_location = $MobPath/MobSpawnLocation
-		mob_spawn_location.progress_ratio = randf()
-
-		# Set the mob's direction perpendicular to the path direction.
-		var direction = mob_spawn_location.rotation + PI / 2
-
-		# Set the mob's position to a random location.
-		mob.position = mob_spawn_location.position
-		mob.start($player)
-		
-		add_child(mob)
-		
 
 
 func _on_mob_timer_timeout():
-	# Create a new instance of the Mob scene.
 	var mob = mob_scene.instantiate()
 
 	# Choose a random location on Path2D.
@@ -48,6 +31,7 @@ func _on_mob_timer_timeout():
 
 	# Set the mob's position to a random location.
 	mob.position = mob_spawn_location.position
+	mob.start($player)
 	
 	add_child(mob)
 

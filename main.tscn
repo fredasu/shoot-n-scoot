@@ -17,7 +17,7 @@ mob_scene = ExtResource("2_e7n32")
 [node name="player" parent="." instance=ExtResource("3_dq84l")]
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 
 [node name="MobPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_0kt7m")
@@ -25,3 +25,4 @@ curve = SubResource("Curve2D_0kt7m")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
 [connection signal="area_entered" from="player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
