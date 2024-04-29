@@ -9,11 +9,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	get_node("icon").look_at(get_global_mouse_position())
+	get_node("player").look_at(get_global_mouse_position())
 
 func _input(event):
 	if event.is_action_released("click"):
 		var bullet1 = bullet.instantiate()
-		bullet1.position = get_node("icon").position
-		bullet1.rotation = get_node("icon").rotation
+		bullet1.transform = $player/Marker2D.global_transform
 		add_child(bullet1)
