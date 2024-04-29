@@ -1,6 +1,11 @@
 extends Sprite2D
 
 var speed = 150
+var screen_size # Size of the game window
+var buffer = 70	#adjust as needed to not get stuck on the edge of the board/wraparound (full sprite visible again)
+
+func _ready():
+	screen_size = get_viewport_rect().size
 
 func _physics_process(delta):
 	look_at(get_global_mouse_position())	#rotation to follow mouse
@@ -11,3 +16,14 @@ func _physics_process(delta):
 	if velocity.length() > 0:
 		velocity = -velocity.normalized()	#go opposite direction as where mouse vector is
 	position += velocity * speed * delta
+	#wrap around the board check
+	if (position.x < 0):
+		position.x = screen_size.x - buffer
+	elif (position.x > screen_size.x):
+		position.x = buffer
+	if (position.y < 0):
+		position.y = screen_size.y - buffer
+	elif (position.y > screen_size.y):
+		position.y = buffer
+
+
