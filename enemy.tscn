@@ -3,33 +3,41 @@
 [ext_resource type="Texture2D" uid="uid://dutl1exke7ups" path="res://enemy.png" id="2_by8im"]
 
 [sub_resource type="GDScript" id="GDScript_1gvh6"]
-script/source = "extends CharacterBody2D
+script/source = "extends Area2D
 
-# Movement speed
-@export var speed = 100
+@export var speed = 350
+@export var steer_force = 50.0
 
-var player_position
-var target_position
-# Get a reference to the player. It's likely different in your project
-@onready var player = get_parent().get_node(\"player\")
- 
+var velocity = Vector2.ZERO
+var acceleration = Vector2.ZERO
+var speedVec = Vector2(speed, speed)
+var target = null
+
+func start(_transform, _target):
+	global_transform = _transform
+	rotation += randi_range(-0.09, 0.09)
+	velocity = transform.x * speed
+	target = _target
+
+func seek():
+	var steer = Vector2.ZERO
+	if target:
+		var desired = (target.position - position).normalized() * speed
+		steer = (desired - velocity).normalized() * steer_force
+	return steer
+
 func _physics_process(delta):
-	
-	# Set player_position to the position of the player node
-	player_position = player.global_position
-	# Calculate the target position
-	target_position = (player_position - self.global_position).normalized()
- 
-	# Check if the enemy is in a 3px range of the player, if not move to the target position
-	if position.distance_to(player_position) > 3:
-		move_and_collide(target_position * speed)
-		look_at(player_position)
+	acceleration += seek()
+	velocity += acceleration * delta
+	velocity = velocity.clamp(Vector2.ZERO, speedVec)
+	rotation = velocity.angle()
+	position += velocity * delta
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rw3ds"]
 size = Vector2(127.5, 128.5)
 
-[node name="enemy" type="CharacterBody2D"]
+[node name="enemy" type="Area2D"]
 script = SubResource("GDScript_1gvh6")
 
 [node name="icon2" type="Sprite2D" parent="."]
