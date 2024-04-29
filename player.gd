@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Area2D
 
 var speed = 150
 var screen_size # Size of the game window

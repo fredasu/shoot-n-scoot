@@ -4,12 +4,11 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	get_node("player").look_at(get_global_mouse_position())
+	pass
 
 func _input(event):
 	if event.is_action_released("click"):
