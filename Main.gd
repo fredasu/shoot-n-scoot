@@ -18,5 +18,5 @@ func _input(event):
 		add_child(bullet1)
 	if event.is_action_released("spawnEnemy"):	#press space bar to make enemy for debugging
 		var enem1 = enemy.instantiate()
-		enem1.start(global_transform, $player)
+		enem1.start($player)
 		add_child(enem1)

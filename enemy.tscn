@@ -5,16 +5,15 @@
 [sub_resource type="GDScript" id="GDScript_1gvh6"]
 script/source = "extends Area2D
 
-@export var speed = 350
-@export var steer_force = 50.0
+@export var speed = 100
+@export var steer_force = 50.0	#how much it wobbles (like the P in PID)
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var speedVec = Vector2(speed, speed)
 var target = null
 
-func start(_transform, _target):
-	global_transform = _transform
+func start(_target):
 	rotation += randi_range(-0.09, 0.09)
 	velocity = transform.x * speed
 	target = _target
@@ -29,7 +28,7 @@ func seek():
 func _physics_process(delta):
 	acceleration += seek()
 	velocity += acceleration * delta
-	velocity = velocity.clamp(Vector2.ZERO, speedVec)
+	velocity = velocity.clamp(-speedVec, speedVec)
 	rotation = velocity.angle()
 	position += velocity * delta
 "
@@ -41,10 +40,10 @@ size = Vector2(127.5, 128.5)
 script = SubResource("GDScript_1gvh6")
 
 [node name="icon2" type="Sprite2D" parent="."]
-position = Vector2(959, 133)
+position = Vector2(-2.00024, -2.00003)
 scale = Vector2(1.13761, 0.828947)
 texture = ExtResource("2_by8im")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(959, 132.25)
+position = Vector2(-2.00024, -2.75003)
 shape = SubResource("RectangleShape2D_rw3ds")

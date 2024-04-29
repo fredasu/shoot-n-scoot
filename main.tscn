@@ -11,7 +11,7 @@ size = Vector2(128, 127)
 script = ExtResource("1_5gd8j")
 
 [node name="player" type="Area2D" parent="."]
-position = Vector2(727, 136)
+position = Vector2(574, 374)
 script = ExtResource("3_dotxw")
 
 [node name="Marker2D" type="Marker2D" parent="player"]
