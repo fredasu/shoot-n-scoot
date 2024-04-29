@@ -10,3 +10,6 @@ func _ready():
 func _process(delta):
 	position += transform.x * speed * delta
 
+func _on_area_entered(area):
+	area.queue_free()	#delete enemy
+	self.queue_free()	#delete bullet from collision

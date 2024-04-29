@@ -1,7 +1,8 @@
-extends Node2D
+extends Node
 
 @onready var bullet = preload("res://bullet.tscn")
 @onready var enemy = preload("res://enemy.tscn")
+@export var mob_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +18,40 @@ func _input(event):
 		bullet1.transform = $player/Marker2D.global_transform
 		add_child(bullet1)
 	if event.is_action_released("spawnEnemy"):	#press space bar to make enemy for debugging
-		var enem1 = enemy.instantiate()
-		enem1.start($player)
-		add_child(enem1)
+		var mob = mob_scene.instantiate()
+
+	# Choose a random location on Path2D.
+		var mob_spawn_location = $MobPath/MobSpawnLocation
+		mob_spawn_location.progress_ratio = randf()
+
+		# Set the mob's direction perpendicular to the path direction.
+		var direction = mob_spawn_location.rotation + PI / 2
+
+		# Set the mob's position to a random location.
+		mob.position = mob_spawn_location.position
+		mob.start($player)
+		
+		add_child(mob)
+		
+
+
+func _on_mob_timer_timeout():
+	# Create a new instance of the Mob scene.
+	var mob = mob_scene.instantiate()
+
+	# Choose a random location on Path2D.
+	var mob_spawn_location = $MobPath/MobSpawnLocation
+	mob_spawn_location.progress_ratio = randf()
+
+	# Set the mob's direction perpendicular to the path direction.
+	var direction = mob_spawn_location.rotation + PI / 2
+
+	# Set the mob's position to a random location.
+	mob.position = mob_spawn_location.position
+	
+	add_child(mob)
+
+
+func game_over(area):
+	$player.hide()
+	print("ahh")
