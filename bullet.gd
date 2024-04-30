@@ -12,7 +12,7 @@ func _process(delta):
 
 func _on_area_entered(area):
 	if (area.name == "player"):
-		area.hide()	#don't delete player otherwise bullet transform error
+		area.hide()
 	else:
 		area.queue_free()	#delete enemy
 	self.queue_free()	#delete bullet from collision

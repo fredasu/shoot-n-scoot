@@ -17,7 +17,8 @@ func new_game():
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
 	$player.start()
-	wait = false
+	$Music.play()
+	wait = false	#so dont kill yourself with a bullet right off the bat
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -44,12 +45,14 @@ func _on_mob_timer_timeout():
 	add_child(mob)
 
 
-func game_over(area):
+func game_over(area):	#can friendly fire on self and lose
 	$player.hide()
 	$MobTimer.stop()
 	$ScoreTimer.stop()
 	$HUD.show_game_over()
 	$player/CollisionShape2D.set_deferred("disabled", true)	#disable to not repeat signal
+	$Music.stop()
+	$DeathSound.play()
 	wait = false
 
 

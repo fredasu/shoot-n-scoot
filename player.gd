@@ -27,6 +27,6 @@ func _physics_process(delta):
 		position.y = buffer
 
 func start():
-	position = Vector2(350, 350)	#force it to start in the center every time
+	position = Vector2(screen_size.x/2 - buffer, screen_size.y/2 - buffer)	#force it to start in the center every time
 	show()
 	$CollisionShape2D.disabled = false

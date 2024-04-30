@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://mdjxjnghlj1s"]
 
-[ext_resource type="Texture2D" uid="uid://dutl1exke7ups" path="res://enemy.png" id="2_by8im"]
+[ext_resource type="Texture2D" uid="uid://dx7e7muevm1cr" path="res://enemy.png" id="2_by8im"]
 
 [sub_resource type="GDScript" id="GDScript_1gvh6"]
 script/source = "extends Area2D
@@ -33,17 +33,19 @@ func _physics_process(delta):
 	position += velocity * delta
 "
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rw3ds"]
-size = Vector2(127.5, 128.5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tmrn8"]
+radius = 26.0
+height = 108.0
 
 [node name="enemy" type="Area2D" groups=["mobs"]]
 script = SubResource("GDScript_1gvh6")
 
 [node name="icon2" type="Sprite2D" parent="."]
 position = Vector2(-2.00024, -2.00003)
-scale = Vector2(1.13761, 0.828947)
+scale = Vector2(0.75, 0.546)
 texture = ExtResource("2_by8im")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.00024, -2.75003)
-shape = SubResource("RectangleShape2D_rw3ds")
+position = Vector2(-7, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tmrn8")
