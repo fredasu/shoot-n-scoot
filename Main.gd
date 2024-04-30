@@ -1,19 +1,30 @@
 extends Node
 
 @onready var bullet = preload("res://bullet.tscn")
-@onready var enemy = preload("res://enemy.tscn")
 @export var mob_scene: PackedScene
+
+var score
+var wait = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$MobTimer.start()
+	pass
+
+func new_game():
+	score = 0
+	get_tree().call_group("mobs", "queue_free")
+	$StartTimer.start()
+	$HUD.update_score(score)
+	$HUD.show_message("Get Ready")
+	$player.start()
+	wait = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func _input(event):
-	if event.is_action_released("click"):
+	if wait and event.is_action_released("click"):
 		var bullet1 = bullet.instantiate()
 		bullet1.transform = $player/Marker2D.global_transform
 		add_child(bullet1)
@@ -26,9 +37,6 @@ func _on_mob_timer_timeout():
 	var mob_spawn_location = $MobPath/MobSpawnLocation
 	mob_spawn_location.progress_ratio = randf()
 
-	# Set the mob's direction perpendicular to the path direction.
-	var direction = mob_spawn_location.rotation + PI / 2
-
 	# Set the mob's position to a random location.
 	mob.position = mob_spawn_location.position
 	mob.start($player)
@@ -38,4 +46,20 @@ func _on_mob_timer_timeout():
 
 func game_over(area):
 	$player.hide()
-	print("ahh")
+	$MobTimer.stop()
+	$ScoreTimer.stop()
+	$HUD.show_game_over()
+	$player/CollisionShape2D.set_deferred("disabled", true)	#disable to not repeat signal
+	wait = false
+
+
+func _on_score_timer_timeout():
+	score += 1
+	$HUD.update_score(score)
+
+
+func _on_start_timer_timeout():
+	$MobTimer.start()
+	$ScoreTimer.start()
+	$HUD.update_score(score)
+	wait = true

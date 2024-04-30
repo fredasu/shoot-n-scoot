@@ -36,7 +36,7 @@ func _physics_process(delta):
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rw3ds"]
 size = Vector2(127.5, 128.5)
 
-[node name="enemy" type="Area2D"]
+[node name="enemy" type="Area2D" groups=["mobs"]]
 script = SubResource("GDScript_1gvh6")
 
 [node name="icon2" type="Sprite2D" parent="."]

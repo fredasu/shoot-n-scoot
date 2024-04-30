@@ -6,8 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjrnv"]
 size = Vector2(128, 127)
 
-[node name="player" type="Area2D" groups=["player"]]
-position = Vector2(574, 374)
+[node name="player" type="Area2D"]
+position = Vector2(2, 0)
 script = ExtResource("1_olctf")
 
 [node name="Marker2D" type="Marker2D" parent="."]

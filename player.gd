@@ -1,6 +1,6 @@
 extends Area2D
 
-var speed = 150
+var speed = 300
 var screen_size # Size of the game window
 var buffer = 70	#adjust as needed to not get stuck on the edge of the board/wraparound (full sprite visible again)
 
@@ -26,4 +26,7 @@ func _physics_process(delta):
 	elif (position.y > screen_size.y):
 		position.y = buffer
 
-
+func start():
+	position = Vector2(350, 350)	#force it to start in the center every time
+	show()
+	$CollisionShape2D.disabled = false

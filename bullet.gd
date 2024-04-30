@@ -11,7 +11,10 @@ func _process(delta):
 	position += transform.x * speed * delta
 
 func _on_area_entered(area):
-	area.queue_free()	#delete enemy
+	if (area.name == "player"):
+		area.hide()	#don't delete player otherwise bullet transform error
+	else:
+		area.queue_free()	#delete enemy
 	self.queue_free()	#delete bullet from collision
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
