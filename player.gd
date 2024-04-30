@@ -27,6 +27,7 @@ func _physics_process(delta):
 		position.y = buffer
 
 func start():
-	position = Vector2(screen_size.x/2 - buffer, screen_size.y/2 - buffer)	#force it to start in the center every time
+	screen_size = get_viewport_rect().size	#in case screensize changed
+	position = Vector2(screen_size.x/2, screen_size.y/2)	#force it to start in the center every time
 	show()
 	$CollisionShape2D.disabled = false
