@@ -20,4 +20,4 @@ Godot Homing Projectile: https://www.youtube.com/watch?v=mQ2U3xnFU6M
 
 Player can avoid/shoot enemies, and moves due to the recoil from shooting. The edges of the screen "wrap", so a player can teleport from one side to the other (enemies can't teleport). The longer the player lasts, the higher the score.
 
-See video for game trailer/demo.
+See video "Shoot n' Scoot" (mp4) for game trailer/demo.
